@@ -97,4 +97,8 @@ export default class Photino {
     }
     return res.data.return as TReturn;
   }
+
+  async sendRaw(value: string) {
+    window.external.sendMessage(value);
+  }
 }

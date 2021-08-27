@@ -44,6 +44,14 @@ export default class Window extends APIBase {
     return this.photino.send({ ns: this.ns, action: 'setTopMost', params: { topMost } });
   }
 
+  drag() {
+    this.photino.sendRaw('drag');
+  }
+
+  resize(direction: string) {
+    this.photino.sendRaw(`r${direction}`);
+  }
+
   /* show(): Promise<void> {
     return this.photino.send({ ns: this.ns, action: 'show' });
   }
