@@ -1,2 +1,2 @@
-# photino-api
+# photino.js
  Photino API frontend library
