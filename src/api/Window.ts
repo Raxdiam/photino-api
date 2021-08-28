@@ -1,11 +1,42 @@
 import type Photino from '../Photino';
 import APIBase from './APIBase';
 
+export interface IPhotinoEvent {}
+/* export interface WindowSizeEvent extends IPhotinoEvent {
+  width: number;
+  height: number;
+}
+export interface WindowLocationEvent extends IPhotinoEvent {
+  x: number;
+  y: number;
+} */
+
+interface PhotinoEventMap {
+  /* size: WindowSizeEvent;
+  location: WindowLocationEvent; */
+}
+
 export default class Window extends APIBase {
+  private listeners: { [type: string]: ((e: IPhotinoEvent) => void)[] };
   protected ns: string = 'window';
 
   constructor(photino: Photino) {
     super(photino);
+
+    this.listeners = {};
+    window.external.receiveMessage((msg) => {
+      if (!msg.startsWith('ev|')) return;
+      const parts = msg.split('|');
+      const type = parts[1];
+      const props = parts.slice(2).map((x) => x.split('='));
+      const event = Object.fromEntries(props);
+
+      if (this.listeners[type]) {
+        for (const listener of this.listeners[type]) {
+          listener(event);
+        }
+      }
+    });
   }
 
   getTitle(): Promise<string> {
@@ -75,4 +106,9 @@ export default class Window extends APIBase {
   resize(direction: string) {
     this.photino.sendRaw(`r${direction}`);
   }  
+
+  on<K extends keyof PhotinoEventMap>(type: K, listener: (e: PhotinoEventMap[K]) => void) {
+    if (!this.listeners[type]) this.listeners[type] = [];
+    this.listeners[type].push(listener);
+  }
 }

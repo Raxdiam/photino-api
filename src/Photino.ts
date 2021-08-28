@@ -81,7 +81,8 @@ export default class Photino {
       }, 30000);
 
       window.external.receiveMessage((message) => {
-        const retPhoton = JSON.parse(message) as IPhoton<PhotonResponseData>;
+        if (!message.startsWith('api{')) return;
+        const retPhoton = JSON.parse(message.substring(3)) as IPhoton<PhotonResponseData>;
         if (retPhoton._id === photon._id) {
           clearTimeout(timeout);
           resolve(retPhoton);
