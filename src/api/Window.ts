@@ -8,6 +8,30 @@ export default class Window extends APIBase {
     super(photino);
   }
 
+  getTitle(): Promise<string> {
+    return this.photino.send({ ns: this.ns, action: 'getTitle' });
+  }
+
+  getMaximized(): Promise<string> {
+    return this.photino.send({ ns: this.ns, action: 'getMaximized' });
+  }
+
+  getMinimized(): Promise<string> {
+    return this.photino.send({ ns: this.ns, action: 'getMinimized' });
+  }
+
+  getDevToolsEnabled(): Promise<string> {
+    return this.photino.send({ ns: this.ns, action: 'getDevToolsEnabled' });
+  }
+
+  getContextMenuEnabled(): Promise<string> {
+    return this.photino.send({ ns: this.ns, action: 'getContextMenuEnabled' });
+  }
+
+  getTopMost(): Promise<string> {
+    return this.photino.send({ ns: this.ns, action: 'getTopMost' });
+  }
+
   setTitle(title: string): Promise<void> {
     return this.photino.send({ ns: this.ns, action: 'setTitle', params: { title } });
   }
@@ -20,16 +44,12 @@ export default class Window extends APIBase {
     return this.photino.send({ ns: this.ns, action: 'setLocation', params: { x, y } });
   }
 
-  maximize(): Promise<void> {
-    return this.photino.send({ ns: this.ns, action: 'maximize' });
+  setMaximized(maximized: boolean): Promise<void> {
+    return this.photino.send({ ns: this.ns, action: 'setMaximized', params: { maximized } });
   }
 
-  minimize(): Promise<void> {
-    return this.photino.send({ ns: this.ns, action: 'minimize' });
-  }
-
-  restore(): Promise<void> {
-    return this.photino.send({ ns: this.ns, action: 'restore' });
+  setMinimized(minimized: boolean): Promise<void> {
+    return this.photino.send({ ns: this.ns, action: 'setMinimized', params: { minimized } });
   }
 
   setDevToolsEnabled(enabled: boolean): Promise<void> {
@@ -44,23 +64,15 @@ export default class Window extends APIBase {
     return this.photino.send({ ns: this.ns, action: 'setTopMost', params: { topMost } });
   }
 
+  close(): Promise<void> {
+    return this.photino.send({ ns: this.ns, action: 'close' });
+  }
+
   drag() {
     this.photino.sendRaw('drag');
   }
 
   resize(direction: string) {
     this.photino.sendRaw(`r${direction}`);
-  }
-
-  /* show(): Promise<void> {
-    return this.photino.send({ ns: this.ns, action: 'show' });
-  }
-
-  hide(): Promise<void> {
-    return this.photino.send({ ns: this.ns, action: 'hide' });
-  } */
-
-  close(): Promise<void> {
-    return this.photino.send({ ns: this.ns, action: 'close' });
-  }
+  }  
 }
