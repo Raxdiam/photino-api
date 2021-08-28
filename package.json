@@ -1,6 +1,6 @@
 {
-  "name": "photino-api",
-  "version": "1.0.7",
+  "name": "photino.js",
+  "version": "1.0.0",
   "description": "Photino API frontend library",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
