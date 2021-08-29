@@ -14,6 +14,11 @@ export interface WindowLocationEvent extends IPhotinoEvent {
 interface PhotinoEventMap {
   /* size: WindowSizeEvent;
   location: WindowLocationEvent; */
+  focusIn: IPhotinoEvent;
+  focusOut: IPhotinoEvent;
+  maximized: IPhotinoEvent;
+  restored: IPhotinoEvent;
+  minimized: IPhotinoEvent;
 }
 
 export default class Window extends APIBase {
@@ -28,8 +33,13 @@ export default class Window extends APIBase {
       if (!msg.startsWith('ev|')) return;
       const parts = msg.split('|');
       const type = parts[1];
-      const props = parts.slice(2).map((x) => x.split('='));
-      const event = Object.fromEntries(props);
+
+      let event: any = null;
+
+      if (parts.length > 2) {
+        const props = parts.slice(2).map((x) => x.split('='));
+        event = Object.fromEntries(props);
+      }      
 
       if (this.listeners[type]) {
         for (const listener of this.listeners[type]) {
