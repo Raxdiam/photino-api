@@ -1,1 +1,2 @@
-export { default as Photino } from './Photino';
+export { Photino } from './Photino';
+export { PhotinoModule } from './PhotinoModule';
