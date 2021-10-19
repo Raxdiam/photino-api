@@ -1,7 +1,7 @@
 import { Photino } from '../Photino';
 import { PhotinoModule } from '../PhotinoModule';
 
-export type HitTestDirection = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+export type HitTest = 'drag' | 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
 
 export class WindowModule extends PhotinoModule {
   readonly name: string = 'window';
@@ -28,10 +28,6 @@ export class WindowModule extends PhotinoModule {
 
   getTopMost(): Promise<boolean> {
     return this.send(this.getTopMost.name);
-  }
-
-  getCentered(): Promise<boolean> {
-    return this.send(this.getCentered.name);
   }
 
   getChromeless(): Promise<boolean> {
@@ -130,7 +126,43 @@ export class WindowModule extends PhotinoModule {
     return this.send(this.center.name);
   }
 
-  hitTest(direction: HitTestDirection | string) {
-    Photino.sendRaw(`ht:${direction}`);
+  hitTest(hitTest: HitTest | string) {
+    Photino.sendRaw(`ht:${hitTest}`);
+  }
+
+  drag() {
+    Photino.sendRaw('ht:drag');
+  }
+
+  resizeTopLeft() {
+    Photino.sendRaw('ht:nw');
+  }
+
+  resizeTop() {
+    Photino.sendRaw('ht:n');
+  }
+
+  resizeTopRight() {
+    Photino.sendRaw('ht:ne');
+  }
+
+  resizeRight() {
+    Photino.sendRaw('ht:e');
+  }
+
+  resizeBottomRight() {
+    Photino.sendRaw('ht:se');
+  }
+
+  resizeBottom() {
+    Photino.sendRaw('ht:s');
+  }
+
+  resizeBottomLeft() {
+    Photino.sendRaw('ht:sw');
+  }
+
+  resizeLeft() {
+    Photino.sendRaw('ht:w');
   }
 }
