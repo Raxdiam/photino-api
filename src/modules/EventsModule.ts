@@ -6,6 +6,11 @@ interface PhotinoEventMap {
   size: PhotinoSizeEvent;
   location: PhotinoLocationEvent;
   closing: PhotinoEvent;
+  focusIn: PhotinoEvent;
+  focusOut: PhotinoEvent;
+  maximize: PhotinoEvent;
+  minimize: PhotinoEvent;
+  restore: PhotinoEvent;
 }
 
 interface PhotinoEventMessage {
@@ -31,7 +36,7 @@ export class EventsModule extends PhotinoModule {
       if (msg.includes('|')) {
         const parts = msg.split('|');
         type = parts[0].split(':')[1];
-        
+
         let entries: string[][];
 
         if (parts[1].includes(',')) {
