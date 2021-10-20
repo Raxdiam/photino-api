@@ -1,5 +1,5 @@
 import { PhotinoMessage, PhotinoRequest, PhotinoResponse } from './data';
-import { AppModule, IOModule, OSModule, WindowModule } from './modules';
+import { AppModule, EventsModule, IOModule, OSModule, WindowModule } from './modules';
 
 declare global {
   interface External {
@@ -18,9 +18,10 @@ export namespace Photino {
   export const io = new IOModule();
   export const os = new OSModule();
   export const window = new WindowModule();
+  export const events = new EventsModule();
 
   export async function send<TReturn>(module: string, method: string, ...parameters: any[]): Promise<TReturn> {
-    const req: PhotinoRequest = {module, method, parameters};
+    const req: PhotinoRequest = { module, method, parameters };
     const res = await sendRequest(req);
     if (res.error) {
       throw new Error(res.error);
