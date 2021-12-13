@@ -1,7 +1,7 @@
 import { Photino } from '../Photino';
 import { PhotinoModule } from '../PhotinoModule';
 
-export type HitTest = 'drag' | 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+export type HitTest = 'drag' | 'left' | 'right' | 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight';
 
 export class WindowModule extends PhotinoModule {
   readonly name: string = 'window';
@@ -122,6 +122,10 @@ export class WindowModule extends PhotinoModule {
     return this.send(this.loadRawString.name, content);
   }
 
+  showSystemMenu(): Promise<void> {
+    return this.send(this.showSystemMenu.name);
+  }
+
   center(): Promise<void> {
     return this.send(this.center.name);
   }
@@ -131,38 +135,38 @@ export class WindowModule extends PhotinoModule {
   }
 
   drag() {
-    Photino.sendRaw('ht:drag');
+    this.hitTest('drag');
   }
 
-  resizeTopLeft() {
-    Photino.sendRaw('ht:nw');
+  left() {
+    this.hitTest('left');
   }
 
-  resizeTop() {
-    Photino.sendRaw('ht:n');
+  right() {
+    this.hitTest('right');
   }
 
-  resizeTopRight() {
-    Photino.sendRaw('ht:ne');
+  top() {
+    this.hitTest('top');
   }
 
-  resizeRight() {
-    Photino.sendRaw('ht:e');
+  topLeft() {
+    this.hitTest('topLeft');
   }
 
-  resizeBottomRight() {
-    Photino.sendRaw('ht:se');
+  topRight() {
+    this.hitTest('topRight');
   }
 
-  resizeBottom() {
-    Photino.sendRaw('ht:s');
+  bottom() {
+    this.hitTest('bottom');
   }
 
-  resizeBottomLeft() {
-    Photino.sendRaw('ht:sw');
+  bottomLeft() {
+    this.hitTest('bottomLeft');
   }
 
-  resizeLeft() {
-    Photino.sendRaw('ht:w');
+  bottomRight() {
+    this.hitTest('bottomRight');
   }
 }
