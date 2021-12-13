@@ -6,4 +6,7 @@ export declare class OSModule extends PhotinoModule {
     isMacOs(): Promise<boolean>;
     getEnvar(key: string): Promise<string>;
     cmd(command: string): Promise<string>;
+    showOpenFile(title: string, filters: string[], multiSelect?: boolean, defaultPath?: string): Promise<string>;
+    showSaveFile(title: string, filters: string[], defaultPath?: string): Promise<string>;
+    showSelectFolder(title: string, defaultPath?: string): Promise<string>;
 }

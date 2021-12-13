@@ -61,6 +61,12 @@ class IOModule extends PhotinoModule {
   writeFileLines(path, contents, encoding = null) {
     return this.send(this.writeFileLines.name, path, contents, encoding);
   }
+  moveFile(path, destination) {
+    return this.send(this.moveFile.name, path, destination);
+  }
+  moveFolder(path, destination) {
+    return this.send(this.moveFolder.name, path, destination);
+  }
   listFiles(path, searchPattern = null, recursive = false) {
     return this.send(this.listFiles.name, path, searchPattern, recursive);
   }
@@ -108,6 +114,15 @@ class OSModule extends PhotinoModule {
   }
   cmd(command) {
     return this.send(this.cmd.name, command);
+  }
+  showOpenFile(title, filters, multiSelect = false, defaultPath = null) {
+    return this.send(this.showOpenFile.name, title, filters, multiSelect, defaultPath);
+  }
+  showSaveFile(title, filters, defaultPath = null) {
+    return this.send(this.showSaveFile.name, title, filters, defaultPath);
+  }
+  showSelectFolder(title, defaultPath = null) {
+    return this.send(this.showSelectFolder.name, title, defaultPath);
   }
 }
 class WindowModule extends PhotinoModule {
@@ -202,6 +217,9 @@ class WindowModule extends PhotinoModule {
   loadRawString(content) {
     return this.send(this.loadRawString.name, content);
   }
+  showSystemMenu() {
+    return this.send(this.showSystemMenu.name);
+  }
   center() {
     return this.send(this.center.name);
   }
@@ -209,31 +227,31 @@ class WindowModule extends PhotinoModule {
     Photino.sendRaw(`ht:${hitTest}`);
   }
   drag() {
-    Photino.sendRaw("ht:drag");
+    this.hitTest("drag");
   }
-  resizeTopLeft() {
-    Photino.sendRaw("ht:nw");
+  left() {
+    this.hitTest("left");
   }
-  resizeTop() {
-    Photino.sendRaw("ht:n");
+  right() {
+    this.hitTest("right");
   }
-  resizeTopRight() {
-    Photino.sendRaw("ht:ne");
+  top() {
+    this.hitTest("top");
   }
-  resizeRight() {
-    Photino.sendRaw("ht:e");
+  topLeft() {
+    this.hitTest("topLeft");
   }
-  resizeBottomRight() {
-    Photino.sendRaw("ht:se");
+  topRight() {
+    this.hitTest("topRight");
   }
-  resizeBottom() {
-    Photino.sendRaw("ht:s");
+  bottom() {
+    this.hitTest("bottom");
   }
-  resizeBottomLeft() {
-    Photino.sendRaw("ht:sw");
+  bottomLeft() {
+    this.hitTest("bottomLeft");
   }
-  resizeLeft() {
-    Photino.sendRaw("ht:w");
+  bottomRight() {
+    this.hitTest("bottomRight");
   }
 }
 class EventsModule extends PhotinoModule {

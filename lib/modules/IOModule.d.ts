@@ -8,6 +8,8 @@ export declare class IOModule extends PhotinoModule {
     writeFile(path: string, data: Uint8Array): Promise<void>;
     writeFileText(path: string, contents: string, encoding?: Encoding | null): Promise<void>;
     writeFileLines(path: string, contents: string[], encoding?: Encoding | null): Promise<void>;
+    moveFile(path: string, destination: string): Promise<void>;
+    moveFolder(path: string, destination: string): Promise<void>;
     listFiles(path: string, searchPattern?: string, recursive?: boolean): Promise<string[]>;
     listFolders(path: string, searchPattern?: string, recursive?: boolean): Promise<string[]>;
     createFolder(path: string): Promise<void>;

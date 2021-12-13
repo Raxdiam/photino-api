@@ -1,5 +1,5 @@
 import { PhotinoModule } from '../PhotinoModule';
-export declare type HitTest = 'drag' | 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+export declare type HitTest = 'drag' | 'left' | 'right' | 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight';
 export declare class WindowModule extends PhotinoModule {
     readonly name: string;
     getTitle(): Promise<string>;
@@ -31,15 +31,16 @@ export declare class WindowModule extends PhotinoModule {
     close(): Promise<void>;
     load(path: string): Promise<void>;
     loadRawString(content: string): Promise<void>;
+    showSystemMenu(): Promise<void>;
     center(): Promise<void>;
     hitTest(hitTest: HitTest | string): void;
     drag(): void;
-    resizeTopLeft(): void;
-    resizeTop(): void;
-    resizeTopRight(): void;
-    resizeRight(): void;
-    resizeBottomRight(): void;
-    resizeBottom(): void;
-    resizeBottomLeft(): void;
-    resizeLeft(): void;
+    left(): void;
+    right(): void;
+    top(): void;
+    topLeft(): void;
+    topRight(): void;
+    bottom(): void;
+    bottomLeft(): void;
+    bottomRight(): void;
 }
