@@ -29,6 +29,14 @@ export class IOModule extends PhotinoModule {
     return this.send(this.writeFileLines.name, path, contents, encoding);
   }
 
+  moveFile(path: string, destination: string): Promise<void> {
+    return this.send(this.moveFile.name, path, destination);
+  }
+
+  moveFolder(path: string, destination: string): Promise<void> {
+    return this.send(this.moveFolder.name, path, destination);
+  }
+
   listFiles(path: string, searchPattern: string = null, recursive: boolean = false): Promise<string[]> {
     return this.send(this.listFiles.name, path, searchPattern, recursive);
   }
